@@ -1,5 +1,7 @@
 import { createServer } from 'node:http'
 
+import { schemaMetadata } from '@mcp-text-to-sql/sql'
+
 import { buildQueryResponse } from './query.js'
 import { parseJsonBody, readRequestBody, sendJson } from './app.js'
 import { env } from './env.js'
@@ -20,6 +22,11 @@ export function createAppServer() {
 
     if (request.method === 'GET' && request.url === '/health') {
       sendJson(response, 200, { ok: true })
+      return
+    }
+
+    if (request.method === 'GET' && request.url === '/schema') {
+      sendJson(response, 200, schemaMetadata)
       return
     }
 

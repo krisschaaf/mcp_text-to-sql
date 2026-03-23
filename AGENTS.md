@@ -26,6 +26,7 @@ Repository guidance for agentic coding assistants working in `mcp_text-to-sql`.
 - Test: `npm run test`
 - Test one file: `npm run test:unit -- packages/shared/src/index.test.ts`
 - Workspace package scripts currently use `tsc`, `vite`, `tsx`, and Vitest.
+- MCP dev server: `npm run dev:mcp --workspace @mcp-text-to-sql/server`
 - Database setup: `npm run db:migrate` and `npm run db:seed` load variables from `.env` via `dotenv-cli`.
 
 ## Single-Test / Targeted Execution 

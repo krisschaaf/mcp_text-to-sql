@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "dev:mcp": "tsx watch src/mcp.ts",
     "build": "tsc -p tsconfig.json",
     "lint": "tsc -p tsconfig.json --noEmit",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
   },
   "dependencies": {
     "@mcp-text-to-sql/sql": "file:../../packages/sql",
+    "@modelcontextprotocol/sdk": "^1.17.4",
     "pg": "^8.13.3"
   }
 }

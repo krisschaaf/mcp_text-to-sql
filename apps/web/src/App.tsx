@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 
 interface QueryResponse {
   question: string
@@ -10,6 +10,15 @@ interface QueryResponse {
   source?: 'postgres' | 'fallback'
 }
 
+interface SchemaMetadata {
+  tables: Array<{
+    name: string
+    description: string
+    columns: Array<{ name: string; type: string; description: string }>
+  }>
+  notes: string[]
+}
+
 const apiBaseUrl = 'http://localhost:8787'
 
 export function App() {
@@ -17,8 +26,35 @@ export function App() {
   const [response, setResponse] = useState<QueryResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [schema, setSchema] = useState<SchemaMetadata | null>(null)
+  const [schemaError, setSchemaError] = useState<string | null>(null)
+  const [schemaLoading, setSchemaLoading] = useState(false)
 
   const rows = response?.rows ?? []
+
+  useEffect(() => {
+    async function loadSchema(): Promise<void> {
+      setSchemaLoading(true)
+      setSchemaError(null)
+
+      try {
+        const result = await fetch(`${apiBaseUrl}/schema`)
+
+        if (!result.ok) {
+          throw new Error('Failed to load schema metadata')
+        }
+
+        setSchema((await result.json()) as SchemaMetadata)
+      } catch (loadError) {
+        setSchema(null)
+        setSchemaError(loadError instanceof Error ? loadError.message : 'Unknown schema error')
+      } finally {
+        setSchemaLoading(false)
+      }
+    }
+
+    void loadSchema()
+  }, [])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
@@ -60,6 +96,36 @@ export function App() {
       </section>
 
       <section className="panel chat-panel">
+        <div>
+          <p className="eyebrow">Schema</p>
+          {schemaLoading ? (
+            <p>Loading schema metadata...</p>
+          ) : schemaError ? (
+            <p className="error">{schemaError}</p>
+          ) : schema ? (
+            <div className="schema-card">
+              {schema.tables.map((table) => (
+                <div key={table.name} className="schema-table">
+                  <p className="schema-table-name">{table.name}</p>
+                  <p className="schema-table-description">{table.description}</p>
+                  <ul>
+                    {table.columns.map((column) => (
+                      <li key={`${table.name}.${column.name}`}>
+                        <strong>{column.name}</strong> <span>{column.type}</span> - {column.description}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <ul>
+                {schema.notes.map((note) => (
+                  <li key={note}>{note}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+
         <form onSubmit={handleSubmit} className="query-form">
           <label htmlFor="question">Ask a question</label>
           <textarea
