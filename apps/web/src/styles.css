@@ -59,6 +59,12 @@ textarea {
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
 }
 
+.query-form,
+.results {
+  display: grid;
+  gap: 12px;
+}
+
 textarea {
   width: 100%;
   padding: 16px;
@@ -66,6 +72,24 @@ textarea {
   border: 1px solid rgba(0, 0, 0, 0.12);
   resize: vertical;
   background: rgba(255, 255, 255, 0.9);
+}
+
+pre {
+  margin: 0;
+  padding: 16px;
+  border-radius: 16px;
+  overflow-x: auto;
+  background: rgba(20, 20, 18, 0.08);
+}
+
+ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.error {
+  margin: 0;
+  color: #8d2f2f;
 }
 
 button {

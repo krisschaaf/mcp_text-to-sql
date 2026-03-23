@@ -4,8 +4,8 @@ Repository guidance for agentic coding assistants working in `mcp_text-to-sql`.
 
 ## Project Snapshot
 
-- This repository now has a minimal workspace scaffold.
-- Present files include a root `package.json`, `apps/web`, `apps/server`, `packages/shared`, and the original `README.md`.
+- This repository now has a minimal workspace scaffold with `apps/web`, `apps/server`, `packages/shared`, and `packages/sql`.
+- Present files include a root `package.json`, workspace tsconfigs, and starter source files.
 - The README still defines the product direction: React ChatUI, TypeScript MCP service, SQL/LLM integration, Postgres, and local Kubernetes.
 - No `.cursor/rules/`, `.cursorrules`, or `.github/copilot-instructions.md` files are present in this snapshot.
 - If those rule files appear later, follow them first and keep this file aligned.
@@ -25,7 +25,7 @@ Repository guidance for agentic coding assistants working in `mcp_text-to-sql`.
 - Lint: `npm run lint`
 - Test: `npm run test`
 - Test one file: `npm run test:unit -- packages/shared/src/index.test.ts`
-- Workspace package scripts currently use `tsc`, `vite`, and `tsx`.
+- Workspace package scripts currently use `tsc`, `vite`, `tsx`, and Vitest.
 
 ## Single-Test / Targeted Execution 
 

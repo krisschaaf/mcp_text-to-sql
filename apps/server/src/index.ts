@@ -1,5 +1,3 @@
-function main(): void {
-  console.log('mcp_text-to-sql server scaffold ready')
-}
+import { startServer } from './http.js'
 
-main()
+startServer()
