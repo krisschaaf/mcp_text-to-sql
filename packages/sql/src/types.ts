@@ -17,4 +17,5 @@ export interface QueryResponse extends QueryResult {
   sql: string
   intent: string
   warnings: string[]
+  source?: 'postgres' | 'fallback'
 }

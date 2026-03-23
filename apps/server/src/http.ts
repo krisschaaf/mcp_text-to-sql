@@ -1,8 +1,10 @@
 import { createServer } from 'node:http'
 
-import { buildQueryResponse, parseJsonBody, readRequestBody, sendJson } from './app.js'
+import { buildQueryResponse } from './query.js'
+import { parseJsonBody, readRequestBody, sendJson } from './app.js'
+import { env } from './env.js'
 
-const port = Number(process.env.PORT ?? '8787')
+const port = env.port
 
 export function createAppServer() {
   return createServer(async (request, response) => {
@@ -31,7 +33,7 @@ export function createAppServer() {
           return
         }
 
-        sendJson(response, 200, buildQueryResponse(question))
+        sendJson(response, 200, await buildQueryResponse(question))
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown request error.'
         sendJson(response, 400, { error: message })

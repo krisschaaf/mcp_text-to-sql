@@ -5,7 +5,7 @@ Repository guidance for agentic coding assistants working in `mcp_text-to-sql`.
 ## Project Snapshot
 
 - This repository now has a minimal workspace scaffold with `apps/web`, `apps/server`, `packages/shared`, and `packages/sql`.
-- Present files include a root `package.json`, workspace tsconfigs, and starter source files.
+- Present files include a root `package.json`, workspace tsconfigs, starter source files, and `db/migrations` plus `db/seeds`.
 - The README still defines the product direction: React ChatUI, TypeScript MCP service, SQL/LLM integration, Postgres, and local Kubernetes.
 - No `.cursor/rules/`, `.cursorrules`, or `.github/copilot-instructions.md` files are present in this snapshot.
 - If those rule files appear later, follow them first and keep this file aligned.
@@ -26,6 +26,7 @@ Repository guidance for agentic coding assistants working in `mcp_text-to-sql`.
 - Test: `npm run test`
 - Test one file: `npm run test:unit -- packages/shared/src/index.test.ts`
 - Workspace package scripts currently use `tsc`, `vite`, `tsx`, and Vitest.
+- Database setup: `npm run db:migrate` and `npm run db:seed` load variables from `.env` via `dotenv-cli`.
 
 ## Single-Test / Targeted Execution 
 
@@ -121,7 +122,7 @@ Repository guidance for agentic coding assistants working in `mcp_text-to-sql`.
 ## Open Items
 
 - Add the actual MCP server implementation and wire it to the shared contracts.
-- Add Postgres migrations, seed data, and a read-only query flow.
+- Add a true MCP transport layer when the service contract is finalized.
 - Expand the web UI from scaffold to chat/result interaction.
 - Add repository-specific cursor/copilot rules if those files appear later.
 
@@ -138,6 +139,7 @@ Repository guidance for agentic coding assistants working in `mcp_text-to-sql`.
 - If Python tooling is introduced, record the version and the canonical virtualenv workflow.
 - If container or Kubernetes manifests are added, document the local cluster command sequence.
 - If database migrations are added, document the safest migration and rollback path.
+- If environment variables are added, keep `.env` values local and update the loader module.
 
 ## Documentation Rules
 

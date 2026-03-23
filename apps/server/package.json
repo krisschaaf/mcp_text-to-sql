@@ -10,6 +10,7 @@
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
   },
   "dependencies": {
-    "@mcp-text-to-sql/sql": "file:../../packages/sql"
+    "@mcp-text-to-sql/sql": "file:../../packages/sql",
+    "pg": "^8.13.3"
   }
 }

@@ -3,6 +3,7 @@ dist
 coverage
 .vite
 .turbo
-.tsbuildinfo
+*.tsbuildinfo
+.env
 .DS_Store
 *.log

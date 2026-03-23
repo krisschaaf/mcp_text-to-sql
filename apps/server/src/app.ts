@@ -1,5 +1,3 @@
-import { runReadOnlyQuestion } from '@mcp-text-to-sql/sql'
-
 import type { IncomingMessage, ServerResponse } from 'node:http'
 
 export interface QueryRequestBody {
@@ -23,10 +21,6 @@ export function parseJsonBody(body: string): QueryRequestBody {
   }
 
   return parsed
-}
-
-export function buildQueryResponse(question: string) {
-  return runReadOnlyQuestion(question)
 }
 
 export function sendJson(response: ServerResponse, statusCode: number, payload: unknown): void {

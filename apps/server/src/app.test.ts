@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { buildQueryResponse, parseJsonBody } from './app.js'
+import { buildQueryResponse } from './query.js'
+import { parseJsonBody } from './app.js'
 
 describe('parseJsonBody', () => {
   it('parses a question payload', () => {
@@ -11,8 +12,8 @@ describe('parseJsonBody', () => {
 })
 
 describe('buildQueryResponse', () => {
-  it('returns a read-only SQL result', () => {
-    const response = buildQueryResponse('How many active users are there?')
+  it('returns a read-only SQL result', async () => {
+    const response = await buildQueryResponse('How many active users are there?')
 
     expect(response.sql).toContain("status = 'active'")
     expect(response.rows[0]).toMatchObject({ count: 4 })

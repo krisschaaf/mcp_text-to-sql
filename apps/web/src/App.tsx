@@ -7,6 +7,7 @@ interface QueryResponse {
   warnings: string[]
   columns: string[]
   rows: Array<Record<string, string | number | boolean | null>>
+  source?: 'postgres' | 'fallback'
 }
 
 const apiBaseUrl = 'http://localhost:8787'
@@ -77,6 +78,13 @@ export function App() {
 
         {response ? (
           <div className="results">
+            {response.source ? (
+              <div>
+                <p className="eyebrow">Source</p>
+                <p>{response.source}</p>
+              </div>
+            ) : null}
+
             <div>
               <p className="eyebrow">Intent</p>
               <p>{response.intent}</p>
